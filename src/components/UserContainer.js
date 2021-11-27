@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../redux";
+// import { connect } from "react-redux";
+// import { fetchUsers } from "../redux";
 
-function UserContainer({ userData, fetchUsers }) {
+// function UserContainer({ userData, fetchUsers }) {
+function UserContainer() {
+  const userData = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetchUsers();
+    dispatch(fetchUsers());
   }, []);
+  
   return userData.loading ? (
     <h2>Loading</h2>
   ) : userData.error ? (
@@ -22,16 +29,18 @@ function UserContainer({ userData, fetchUsers }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userData: state.user,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     userData: state.user,
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchUsers: () => dispatch(fetchUsers()),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     fetchUsers: () => dispatch(fetchUsers()),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserContainer);
+// export default connect(mapStateToProps, mapDispatchToProps)(UserContainer);
+
+export default UserContainer;
